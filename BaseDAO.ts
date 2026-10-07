@@ -1,11 +1,15 @@
-import Database from "better-sqlite3"
+import Database from "better-sqlite3";
 
-abstract class BaseDao{
-  protected DataAccess:  Database.Database;
-  
-  constructor(DBpath: string = "library.DB") {
-    this.DataAccess = new Database(DBpath);
+export abstract class BaseDAO {
+  protected db: Database.Database;
+
+  constructor(db?: Database.Database) {
+    this.db = db ?? new Database("library.db");
   }
 
-protected abstract initTable(): void 
+  getConnection(): Database.Database {
+    return this.db;
+  }
+
+  abstract initTable(): void;
 }
